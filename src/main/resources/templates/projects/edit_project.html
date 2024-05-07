@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorate="layout/mainLayout">
+      
+      <head>
+        <title>Projects - Edit</title>
+    </head>
+    <body>
+        
+    	<div layout:fragment="content">
+	        
+              <div class="box box-warning">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Project Event</h3>
+                </div><!-- /.box-header -->
+                                  <div class="box-tools">
+                    <div class="input-group" style="width: 150px;">
+                    	<a class="btn btn-sm btn-default" th:href="@{/projects/del/{id}(id=${project.id})}" th:object="${project}"><i class="fa fa-minus-circle"></i> Delete Project</a>
+                    </div>
+                  </div>
+                <div class="box-body">
+                  <form role="form" th:action="@{/projects/{id}(id=${project.id})}" th:object="${project}" method="post">
+<!--                   	<p th:if="${#fields.hasErrors('global')}" th:errors="*{global}" th:class="text-red">Incorrect data</p> -->
+                    <!-- text input -->
+                    <div class="form-group">
+                      <label>Name</label>
+                      <input type="text" class="form-control" name="name" th:field="*{name}" />
+                    </div>
+                    
+                    <div class="form-group">
+                      <label>Description</label>
+                      <input type="text" class="form-control" name="description" th:field="*{description}" />
+                    </div>
+   
+                    <div class="form-group">
+                      <label>Size</label>
+                      <input type="text" class="form-control" name="size" th:field="*{size}" />
+                    </div>
+      
+					<div class="form-group">
+						<label>Assignee</label> 
+<!-- 						<select class="form-control" th:field="*{user}" th:remove="all-but-first" th:classappend="${#fields.hasErrors('user')}? 'has-error'"> -->
+						<select class="form-control" name="users" th:field="*{users}" >
+							<option th:each="user : ${allUsers}"
+									th:value="${user.id}" th:text="${user.name}">List of Users</option>
+						</select>
+<!-- 						<input type="text" class="form-control" name="empid" th:field="*{empid}" placeholder="Enter User Id" /> -->
+<!-- 						<p th:if="${#fields.hasErrors('user')}" th:errors="*{user}" th:class="text-red">Incorrect data</p> -->
+					</div>
+    				
+					<div class="box-footer" >
+	                    <button type="submit" class="btn btn-primary">Submit</button>
+	                </div>
+                  </form>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+    	</div>
+    	
+    </body>
+    
+</html>

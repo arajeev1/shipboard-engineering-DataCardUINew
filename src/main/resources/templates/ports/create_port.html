@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	layout:decorate="layout/mainLayout">
+
+<head>
+<title>Port - New</title>
+</head>
+<body>
+	<div layout:fragment="pageHeader">
+		<section class="content-header">
+			<h1>Manage Port</h1>
+		</section>
+	</div>
+
+	<div layout:fragment="content">
+
+		<div class="box box-warning">
+			<div class="box-header with-border">
+				<h3 class="box-title">Create New Port</h3>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body">
+				<form role="form" th:action="@{/ports/new}" th:object="${port}" method="post">
+<!-- 					<p th:if="${#fields.hasErrors('global')}" th:errors="*{global}" th:class="text-red">Incorrect data</p> -->
+					
+					<!-- text input -->
+					<div class="form-group" th:classappend="${#fields.hasErrors('code')}? 'has-error'">
+							<label>Code</label> 
+							<input type="text" class="form-control" name="code" th:field="*{code}" placeholder="Enter New Port Code" />
+							<p th:if="${#fields.hasErrors('code')}" th:errors="*{code}" th:class="text-red">Incorrect data</p>
+					</div>
+
+
+					<div class="form-group" th:classappend="${#fields.hasErrors('description')}? 'has-error'">
+						<label>Description</label> 
+						<input type="text" class="form-control" name="description" th:field="*{description}" placeholder="Enter New Port Desc" />
+						<p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" th:class="text-red">Incorrect data</p>
+					</div>
+
+					<div class="form-group" th:classappend="${#fields.hasErrors('region')}? 'has-error'">
+						<label>Region</label> 
+						<select class="form-control" th:field="*{region}" th:remove="all-but-first" >
+							
+							<option th:each="region : ${regions}" 
+									th:value="${region.id}" th:text="${region.code}">List of Regions</option>
+									<option value=""> List of Regions </option>
+						</select>
+                      <p th:if="${#fields.hasErrors('region')}" th:errors="*{region}" th:class="text-red">Incorrect data</p>
+					</div>
+
+
+					<div class="box-footer">
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</div>
+					
+				</form>
+			</div>
+			<!-- /.box-body -->
+		</div>
+		<!-- /.box -->
+	</div>
+
+
+</body>
+
+</html>

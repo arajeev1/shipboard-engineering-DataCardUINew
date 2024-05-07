@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	layout:decorate="layout/mainLayout">
+
+<head>
+<title>Business Rules - New</title>
+</head>
+<body>
+	<div layout:fragment="pageHeader">
+		<section class="content-header">
+			<h1>Manage Business Rules</h1>
+			<div th:if="${info}" class="col-md-3 alert alert-info alert-dismissable" >
+	          		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		        	<p><i class="icon fa fa-info"></i> <span th:text="${info}">Info</span></p>
+		        </div>
+                  
+		        <div th:if="${error}" class="col-md-3 alert alert-danger alert-dismissable" >
+		        	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		        	<p><i class="icon fa fa-ban"></i> <span th:text="${error}">Error</span></p>
+		        </div>
+		        <div style="clear:both"></div>
+		</section>
+		
+	</div>
+
+	<div layout:fragment="content">
+
+		<div class="box box-warning">
+			<div class="box-header with-border">
+				<h3 class="box-title">Create New Business Rule</h3>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body">
+				<form role="form" th:action="@{/business_rules/new}" th:object="${empStatus}" method="post">
+<!-- 					<p th:if="${#fields.hasErrors('global')}" th:errors="*{global}" th:class="text-red">Incorrect data</p> -->
+					
+					<!-- text input -->
+					<div class="form-group" th:classappend="${#fields.hasErrors('code')}? 'has-error'">
+							<label>Code</label> 
+							<input type="text" class="form-control" name="code" th:field="*{code}" placeholder="Enter New Business Rules Code" />
+							<p th:if="${#fields.hasErrors('code')}" th:errors="*{code}" th:class="text-red">Incorrect data</p>
+					</div>
+
+
+					<div class="form-group" th:classappend="${#fields.hasErrors('description')}? 'has-error'">
+						<label>Description</label> 
+						<input type="text" class="form-control" name="description" th:field="*{description}" placeholder="Enter New Business Rules Desc" />
+						<p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" th:class="text-red">Incorrect data</p>
+					</div>
+					
+
+					<div class="form-group" th:classappend="${#fields.hasErrors('transmissionTypeBR')}? 'has-error'">
+						<label>Transmission Type</label> 
+						<select class="form-control" th:field="*{transmissionTypeBR}"  >
+							<option th:each="tType : ${transmissionTypesBR}" 
+									th:value="${tType.id}" th:text="${tType.code}">List of Teams</option>
+						</select>
+                      <p th:if="${#fields.hasErrors('transmissionTypeBR')}" th:errors="*{transmissionTypeBR}" th:class="text-red">Incorrect data</p>
+					</div>
+					
+					<div class="form-group" th:classappend="${#fields.hasErrors('pmsBR')}? 'has-error'">
+						<label>PMS Type</label> 
+						<select class="form-control" th:field="*{pmsBR}"  >
+							<option th:each="pms : ${pmss}" 
+									th:value="${pms.id}" th:text="${pms.code}">List of Teams</option>
+						</select>
+                      <p th:if="${#fields.hasErrors('pmsBR')}" th:errors="*{pmsBR}" th:class="text-red">Incorrect data</p>
+					</div>
+					
+					<div class="form-group" th:classappend="${#fields.hasErrors('regionBR')}? 'has-error'">
+						<label>Region</label> 
+						<select class="form-control" th:field="*{regionBR}"  >
+							<option th:each="region : ${regions}" 
+									th:value="${region.id}" th:text="${region.code}">List of Teams</option>
+						</select>
+                      <p th:if="${#fields.hasErrors('regionBR')}" th:errors="*{regionBR}" th:class="text-red">Incorrect data</p>
+					</div>
+
+
+					<div class="box-footer">
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</div>
+					
+				</form>
+			</div>
+			<!-- /.box-body -->
+		</div>
+		<!-- /.box -->
+	</div>
+
+
+</body>
+
+</html>

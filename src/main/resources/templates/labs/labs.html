@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorate="layout/mainLayout">
+      
+      <head>
+        <title>Events</title>
+    </head>
+    <body>
+        
+    	<div layout:fragment="content">
+	        <div class="row">
+            <div class="col-md-12">
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">List of Labs</h3>
+                  <div class="box-tools">
+                    <div class="input-group" style="width: 150px;">
+                    	<a class="btn btn-sm btn-default" th:href="@{/labs/new}"><i class="fa fa-plus-circle"></i> New Lab</a>
+                    </div>
+                  </div>
+                </div><!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                  <table class="table table-hover">
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th>Application</th>
+                      <th>Owner</th>
+                      <th>Current User</th>
+                      <th>PM</th>
+                      <th>OS</th>
+                      <th>Status</th>
+                    </tr>
+                    <tr th:each="lab,iterStat : ${labs}">
+                      <td><a th:href="@{/labs/{id}(id=${lab.id})}"><span th:text="${iterStat.count}">1</span></a></td>
+                     <td th:text="${lab.name}">Name</td>
+                      <td th:text="${lab.description}">Description</td>
+                      <td th:if="${lab.applications != null}">
+     					<ul>
+     						<li th:each="app : ${lab.applications}" th:text="${app.name}"> Lab  </li>		
+						</ul>
+      				  </td>
+                      <td th:if="${lab.owners != null}">
+     					<ul>
+     						<li th:each="user : ${lab.owners}" th:text="${user.name}"> Owner  </li>		
+						</ul>
+      				   </td>
+      				   <td th:if="${lab.currentUsers != null}">
+     					<ul>
+     						<li th:each="user : ${lab.currentUsers}" th:text="${user.name}"> Current User  </li>		
+						</ul>
+      				   </td>
+      				   <td th:if="${lab.projectMgr != null}">
+     					<ul>
+     						<li th:each="user : ${lab.projectMgr}" th:text="${user.name}"> PM  </li>		
+						</ul>
+      				   </td>
+                      <td th:text="${lab.os}">OS</td>
+                      <td th:text="${lab.status}" th:class="bg-orange">Status</td>
+                      <td><a th:href="@{/labs/{id}(id=${lab.id})}" class="btn btn-sm btn-default"><i class="fa fa-edit"></i> Edit</a></td>
+                    </tr>
+                    
+                  </table>
+                </div><!-- /.box-body -->
+                
+              </div><!-- /.box -->
+              </div>
+              </div>
+<!--                           <div class="btn-group" style="width: 10%; margin-bottom: 10px;"> -->
+<!--                 <button type="button" id="color-chooser-btn" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">Color <span class="caret"></span></button> -->
+<!--                 <ul class="fc-color-picker" id="color-chooser"> -->
+<!--                   <li><a class="text-aqua" href="#"><i class="fa fa-square"></i></a></li> -->
+<!--                   <li><a class="text-blue" href="#"><i class="fa fa-square"></i></a></li> -->
+<!--                   <li><a class="text-light-blue" href="#"><i class="fa fa-square"></i></a></li> -->
+<!--                   <li><a class="text-teal" href="#"><i class="fa fa-square"></i></a></li> -->
+<!--                   <li><a class="text-yellow" href="#"><i class="fa fa-square"></i></a></li> -->
+<!--                   <li><a class="text-orange" href="#"><i class="fa fa-square"></i></a></li> -->
+<!--                   <li><a class="text-green" href="#"><i class="fa fa-square"></i></a></li> -->
+<!--                   <li><a class="text-lime" href="#"><i class="fa fa-square"></i></a></li> -->
+<!--                   <li><a class="text-red" href="#"><i class="fa fa-square"></i></a></li> -->
+<!--                   <li><a class="text-purple" href="#"><i class="fa fa-square"></i></a></li> -->
+<!--                   <li><a class="text-fuchsia" href="#"><i class="fa fa-square"></i></a></li> -->
+<!--                   <li><a class="text-muted" href="#"><i class="fa fa-square"></i></a></li> -->
+<!--                   <li><a class="text-navy" href="#"><i class="fa fa-square"></i></a></li> -->
+<!--                 </ul> -->
+<!--               </div> -->
+    	</div>
+  
+            
+    </body>
+    
+</html>

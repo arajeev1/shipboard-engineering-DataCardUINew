@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorate="layout/mainLayout">
+      
+      <head>
+        <title>Application - Edit</title>
+    </head>
+    <body>
+        
+    	<div layout:fragment="content">
+	        
+              <div class="box box-warning">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Edit Application</h3>
+                </div><!-- /.box-header -->
+                                  <div class="box-tools">
+                    <div class="input-group" style="width: 150px;">
+                    	<a class="btn btn-sm btn-default" th:href="@{/applications/del/{id}(id=${app.id})}" th:object="${app}"><i class="fa fa-minus-circle"></i> Delete Application</a>
+                    </div>
+                  </div>
+                <div class="box-body">
+                  <form role="form" th:action="@{/applications/{id}(id=${app.id})}" th:object="${app}" method="post">
+<!--                   	<p th:if="${#fields.hasErrors('global')}" th:errors="*{global}" th:class="text-red">Incorrect data</p> -->
+                    <!-- text input -->
+
+					<div class="form-group">
+                      <label>Name</label>
+                      <input type="text" class="form-control" name="name" th:field="*{name}" />
+                    </div>
+                    
+                    <div class="form-group">
+                      <label>Description</label>
+                      <input type="text" class="form-control" name="description" th:field="*{description}" />
+                    </div>
+   
+
+                   	<div class="form-group">
+						<label>Owner</label> 
+<!-- 						<select class="form-control" th:field="*{owners}" th:classappend="${#fields.hasErrors('owners')}? 'has-error'"> -->
+						<select class="form-control" th:field="*{owners}" >
+							<option th:each="owner : ${allOwners}"
+									th:value="${owner.id}" th:text="${owner.name}">List of Owners</option>
+							<option th:each="user : ${allUsers}"
+									th:value="${user.id}" th:text="${user.name}">List of Owners</option>
+						</select>
+					</div> 
+					<div class="form-group">
+						<label>Owner</label> 
+						<select class="form-control" id="selectedOwners" name="selectedOwners" multiple="multiple" >
+							
+							<option th:each="user : ${allOwners}"
+									th:value="${user.id}" th:text="${user.name}">List of Owners</option>
+						</select>
+					</div>					
+
+                    <div class="form-group">
+                      <label>OS</label>
+                      <input type="text" class="form-control" name="os" th:field="*{os}" />
+                    </div>
+                    
+					<div class="form-group" th:classappend="${#fields.hasErrors('status')}? 'has-error'">
+						<label>Status</label> 
+						<p th:if="${#fields.hasErrors('status')}" th:errors="*{status}" th:class="text-red">Incorrect data</p>
+							<select class="form-control" name="color" th:field="*{status}" >
+			                  <option th:value="Active" th:class="bg-navy" >Active</option>
+			                  <option th:value="Inactive" th:class="bg-orange">Inactive</option>
+		                  	</select>
+						<p th:if="${#fields.hasErrors('status')}" th:errors="*{status}" th:class="text-red">Incorrect data</p>
+					</div>
+
+                    					
+<!-- 					<div class="form-group"> -->
+<!-- 						<label>Roles</label> -->
+<!-- 						<div> -->
+<!-- 						  <p th:each="role,rowStat : ${rolesList}"> -->
+<!-- 						    <input type="checkbox" th:field="*{roles[__${rowStat.index}__].id}" th:value="${role.id}" /> -->
+<!-- 						    <label th:text="${role.name}">Role</label> -->
+<!-- 						  </p> -->
+<!-- 						</div> -->
+						
+<!--     				</div> -->
+    				
+					<div class="box-footer" >
+	                    <button type="submit" class="btn btn-primary">Submit</button>
+	                </div>
+                  </form>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+    	</div>
+    	    	<div layout:fragment="pageLevelScript">
+			<script type="text/javascript">
+  						
+  						var opts = [{id:0,text:'enhancement'},
+  								 {id:1,text:'bug'},
+  								 {id:2,text:'duplicate'},
+  								 {id:3,text:'invalid'},
+  								 {id:4,text:'wontfix'}
+  								];
+  						$('#selectedOwners').select2({data: opts});
+  						 $("#selectedOwners").val(opts).trigger("change");
+						</script>
+		</div>
+    </body>
+    
+</html>

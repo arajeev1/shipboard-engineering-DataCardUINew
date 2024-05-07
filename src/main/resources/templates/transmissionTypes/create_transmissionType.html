@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	layout:decorate="layout/mainLayout">
+
+<head>
+<title>Transmission Type - New</title>
+</head>
+<body>
+	<div layout:fragment="pageHeader">
+		<section class="content-header">
+			<h1>Manage TransmissionType</h1>
+		</section>
+	</div>
+
+	<div layout:fragment="content">
+
+		<div class="box box-warning">
+			<div class="box-header with-border">
+				<h3 class="box-title">Create New Transmission Type</h3>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body">
+				<form role="form" th:action="@{/transmissionTypes/new}" th:object="${transmissionType}" method="post">
+<!-- 					<p th:if="${#fields.hasErrors('global')}" th:errors="*{global}" th:class="text-red">Incorrect data</p> -->
+					
+					<!-- text input -->
+					<div class="form-group" th:classappend="${#fields.hasErrors('code')}? 'has-error'">
+							<label>Code</label> 
+							<input type="text" class="form-control" name="code" th:field="*{code}" placeholder="Enter New Transmission Type Code" />
+							<p th:if="${#fields.hasErrors('code')}" th:errors="*{code}" th:class="text-red">Incorrect data</p>
+					</div>
+
+
+					<div class="form-group" th:classappend="${#fields.hasErrors('description')}? 'has-error'">
+						<label>Description</label> 
+						<input type="text" class="form-control" name="description" th:field="*{description}" placeholder="Enter New TransmissionType Desc" />
+						<p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" th:class="text-red">Incorrect data</p>
+					</div>
+
+					<div class="form-group" th:classappend="${#fields.hasErrors('offSetTransmission')}? 'has-error'">
+						<label>Off Set Days</label> 
+						<select class="form-control" name="offSetTransmission" th:field="*{offSetTransmission}" placeholder="Enter New TransmissionType Off Set">
+						                <option value="0">0</option>
+			                            <option value="1">1</option>
+			                            <option value="2">2</option>
+			                            <option value="3">3</option>
+			                            <option value="4">4</option>
+			                            <option value="5">5</option>
+			                            <option value="6">6</option>
+			                            <option value="7">7</option>
+			                            <option value="8">8</option>
+			                            <option value="9">9</option>
+			                            <option value="10">10</option>
+			                            <option value="11">11</option>
+			                            <option value="12">12</option>
+			                            <option value="13">13</option>
+			                            <option value="14">14</option>
+			                            <option value="15">15</option>
+			                            <option value="16">16</option>
+			                            <option value="17">17</option>
+			                            <option value="18">18</option>
+			                            <option value="19">19</option>
+			                            <option value="20">20</option>
+			                            <option value="21">21</option>
+			                            <option value="22">22</option>
+			                            <option value="23">23</option>
+			                            <option value="24">24</option>
+			                            <option value="25">25</option>
+			                            <option value="26">26</option>
+			                            <option value="27">27</option>
+			                            <option value="28">28</option>
+			                            <option value="29">29</option>
+			                            <option value="30">30</option>
+			                            <option value="31">31</option>
+			                        </select>
+						<p th:if="${#fields.hasErrors('offSetTransmission')}" th:errors="*{offSetTransmission}" th:class="text-red">Incorrect data</p>
+					</div>
+
+					<div class="form-group" th:classappend="${#fields.hasErrors('offSetTransmissionHours')}? 'has-error'">
+						<label>Off Set Hours</label> 
+						<select class="form-control" name="offSetTransmissionHours" th:field="*{offSetTransmissionHours}" placeholder="Enter New TransmissionType Off Set Hour">
+						                <option value="0">0</option>
+			                            <option value="1">1</option>
+			                            <option value="2">2</option>
+			                            <option value="3">3</option>
+			                            <option value="4">4</option>
+			                            <option value="5">5</option>
+			                            <option value="6">6</option>
+			                            <option value="7">7</option>
+			                            <option value="8">8</option>
+			                            <option value="9">9</option>
+			                            <option value="10">10</option>
+			                            <option value="11">11</option>
+			                            <option value="12">12</option>
+			                            <option value="13">13</option>
+			                            <option value="14">14</option>
+			                            <option value="15">15</option>
+			                            <option value="16">16</option>
+			                            <option value="17">17</option>
+			                            <option value="18">18</option>
+			                            <option value="19">19</option>
+			                            <option value="20">20</option>
+			                            <option value="21">21</option>
+			                            <option value="22">22</option>
+			                            <option value="23">23</option>
+			                            <option value="24">24</option>
+			                            <option value="25">25</option>
+			                            <option value="26">26</option>
+			                            <option value="27">27</option>
+			                            <option value="28">28</option>
+			                            <option value="29">29</option>
+			                            <option value="30">30</option>
+			                            <option value="31">31</option>
+			                        </select>
+						<p th:if="${#fields.hasErrors('offSetTransmissionHours')}" th:errors="*{offSetTransmissionHours}" th:class="text-red">Incorrect data</p>
+					</div>
+					
+					<div class="form-group" th:classappend="${#fields.hasErrors('style')}? 'has-error'">
+						<label>Color</label> 
+<!-- 						<input type="text" class="form-control" name="color" th:field="*{style}" placeholder="Enter The Color" /> --> 
+				<select class="form-control" id="color" name="color" th:field="*{style}" >
+                  <option th:value="Select" th:class="bg-maroon">Select</option>
+                  <option th:value="bg-maroon" th:class="bg-maroon">bg-maroon</option>
+                  <option th:value="bg-purple" th:class="bg-purple" >bg-purple</option>
+                  <option th:value="bg-navy" th:class="bg-navy" >bg-navy</option>
+                  <option th:value="bg-orange" th:class="bg-orange">bg-orange</option>
+                  <option th:value="bg-olive" th:class="bg-olive" >bg-olive</option>
+                  <option th:value="bg-danger" th:class="bg-danger" >danger</option>
+                 <option th:value="btn-primary" th:class="btn-primary" >primary</option>
+<!--                  <option th:value="text-red" th:class="text-red" >red</option> -->
+<!--                  <option th:value="text-purple" th:class="text-purple" >purple</option> -->
+<!--                  <option th:value="text-fuchsia" th:class="text-fuchsia" >fuchsia</option> -->
+<!--                  <option th:value="text-muted" th:class="text-muted" >muted</option> -->
+<!--                  <option th:value="text-navy" th:class="text-navy" >navy</option> -->
+                  </select>
+						<p th:if="${#fields.hasErrors('style')}" th:errors="*{style}" th:class="text-red">Incorrect data</p>
+					</div>
+
+
+					<div class="box-footer">
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</div>
+					
+				</form>
+			</div>
+			<!-- /.box-body -->
+		</div>
+		<!-- /.box -->
+	</div>
+
+
+</body>
+
+</html>

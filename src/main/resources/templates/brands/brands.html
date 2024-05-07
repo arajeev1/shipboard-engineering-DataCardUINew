@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorate="layout/mainLayout">
+      
+      <head>
+        <title>Brands</title>
+    </head>
+    <body>
+        
+    	<div layout:fragment="content">
+	        <div class="row">
+            <div class="col-md-12">
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">List of Brands</h3>
+                  <div class="box-tools">
+                    <div class="input-group" style="width: 150px;">
+                    	<a class="btn btn-sm btn-default" th:href="@{/brands/new}"><i class="fa fa-plus-circle"></i> New Brand</a>
+                    </div>
+                  </div>
+                </div><!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                  <table class="table table-hover">
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Code</th>
+                      <th>Description</th>
+                      <th>Transmission Type</th>
+                    </tr>
+                    <tr th:class="${brand.style}" th:each="brand,iterStat : ${brands}">
+                      <td><a th:href="@{/brands/{id}(id=${brand.id})}"><span th:text="${iterStat.count}">1</span></a></td>
+                      <td th:text="${brand.code}">Code</td>
+                      <td th:text="${brand.description}">Description</td>
+                      <td>
+                      	<div th:each="transmissionType : ${brand.transmissionType}"   th:text="${transmissionType.code}">List of Transmission Type</div>
+                      </td>
+                      	
+<!--                       <td th:text="${brand.transmissionType.code}">Transmission Type</td> -->
+                      <td><a th:href="@{/brands/{id}(id=${brand.id})}" class="btn btn-sm btn-default"><i class="fa fa-edit"></i> Edit</a></td>
+                    </tr>
+                    
+                  </table>
+                </div><!-- /.box-body -->
+                
+              </div><!-- /.box -->
+              </div>
+              </div>
+
+    	</div>
+  
+            
+    </body>
+    
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	layout:decorate="layout/mainLayout">
+
+<head>
+<title>Home</title>
+</head>
+
+<body>
+	<div layout:fragment="pageHeader">
+		<section class="content-header">
+			<h1>FOLIO VIEWER</h1>
+		</section>
+	</div>
+	<div layout:fragment="content">
+		<p>Welcome</p>
+		<div class="box-body">
+				<form role="form" th:action="@{/folio-viewer-search}" method="post">
+					<!--  text input -->
+					<div class="form-group" >
+							<label>Enter Folio Number</label> 
+							<input type="text" class="form-control" name="folioNumber" id="folioNumber" placeholder="Enter the Folio number" />
+<!-- 							<br> </br> -->
+							<button type="submit" class="btn btn-primary">Search</button>
+							
+				     </div> 
+				
+				</form>
+<!-- 		<p>
+			<a href="#" th:href="@{'/folio-viewer-search'}" target="iframe_a">folio-viewer-pax-list</a>
+		</p> -->
+		<iframe height="300px" width="100%" name="iframe_a"></iframe>
+	     </div> 
+	</div>
+
+
+
+
+
+</body>
+
+</html>

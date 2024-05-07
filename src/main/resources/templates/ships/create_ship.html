@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	layout:decorate="layout/mainLayout">
+
+<head>
+<title>Ship - New</title>
+</head>
+<body>
+	<div layout:fragment="pageHeader">
+		<section class="content-header">
+			<h1>Manage Ship</h1>
+		</section>
+	</div>
+
+	<div layout:fragment="content">
+
+		<div class="box box-warning">
+			<div class="box-header with-border">
+				<h3 class="box-title">Create New Ship</h3>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body">
+				<form role="form" th:action="@{/ships/new}" th:object="${ship}" method="post">
+<!-- 					<p th:if="${#fields.hasErrors('global')}" th:errors="*{global}" th:class="text-red">Incorrect data</p> -->
+					
+					<!-- text input -->
+					<div class="form-group" th:classappend="${#fields.hasErrors('code')}? 'has-error'">
+							<label>Code</label> 
+							<input type="text" class="form-control" name="code" th:field="*{code}" placeholder="Enter New Ship Code" />
+							<p th:if="${#fields.hasErrors('code')}" th:errors="*{code}" th:class="text-red">Incorrect data</p>
+					</div>
+
+
+					<div class="form-group" th:classappend="${#fields.hasErrors('description')}? 'has-error'">
+						<label>Description</label> 
+						<input type="text" class="form-control" name="description" th:field="*{description}" placeholder="Enter New Ship Desc" />
+						<p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" th:class="text-red">Incorrect data</p>
+					</div>
+					
+					<div class="form-group" th:classappend="${#fields.hasErrors('pms')}? 'has-error'">
+						<label>PMS</label> 
+						<select class="form-control" th:field="*{pms}" th:remove="all-but-first" >
+							<option th:each="pms : ${pmss}" 
+									th:value="${pms.id}" th:text="${pms.code}">List of PMS</option>
+						</select>
+                      <p th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}" th:class="text-red">Incorrect data</p>
+					</div>
+
+					<div class="form-group" th:classappend="${#fields.hasErrors('brand')}? 'has-error'">
+						<label>Brand</label> 
+						<select class="form-control" th:field="*{brand}" th:remove="all-but-first" >
+							<option th:each="brand : ${brands}" 
+									th:value="${brand.id}" th:text="${brand.code}">List of Brands</option>
+						</select>
+                      <p th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}" th:class="text-red">Incorrect data</p>
+					</div>
+					
+					<div class="form-group" th:classappend="${#fields.hasErrors('offSetShip')}? 'has-error'">
+						<label>Off Set Hours</label> 
+						<select class="form-control" name="offSetRegion" th:field="*{offSetShip}" placeholder="Enter New Off Set" >
+									    <option value="0">00</option>
+			                            <option value="1">01</option>
+			                            <option value="2">02</option>
+			                            <option value="3">03</option>
+			                            <option value="4">04</option>
+			                            <option value="5">05</option>
+			                            <option value="6">06</option>
+			                            <option value="7">07</option>
+			                            <option value="8">08</option>
+			                            <option value="9">09</option>
+			                            <option value="10">10</option>
+			                            <option value="11">11</option>
+			                            <option value="12">12</option>
+			                            <option value="13">13</option>
+			                            <option value="14">14</option>
+			                            <option value="15">15</option>
+			                            <option value="16">16</option>
+			                            <option value="17">17</option>
+			                            <option value="18">18</option>
+			                            <option value="19">19</option>
+			                            <option value="20">20</option>
+			                            <option value="21">21</option>
+			                            <option value="22">22</option>
+			                            <option value="23">23</option>
+			                            <option value="-1">-01</option>
+			                            <option value="-2">-02</option>
+			                            <option value="-3">-03</option>
+			                            <option value="-4">-04</option>
+			                            <option value="-5">-05</option>
+			                            <option value="-6">-06</option>
+			                            <option value="-7">-07</option>
+			                            <option value="-8">-08</option>
+			                            <option value="-9">-09</option>
+			                            <option value="-10">-10</option>
+			                            <option value="-11">-11</option>
+			                            <option value="-12">-12</option>
+			                            <option value="-13">-13</option>
+			                            <option value="-14">-14</option>
+			                            <option value="-15">-15</option>
+			                            <option value="-16">-16</option>
+			                            <option value="-17">-17</option>
+			                            <option value="-18">-18</option>
+			                            <option value="-19">-19</option>
+			                            <option value="-20">-20</option>
+			                            <option value="-21">-21</option>
+			                            <option value="-22">-22</option>
+			                            <option value="-23">-23</option>
+			                        </select>
+                      <p th:if="${#fields.hasErrors('offSetShip')}" th:errors="*{offSetShip}" th:class="text-red">Incorrect data</p>
+					</div>
+					
+					<div class="form-group" th:classappend="${#fields.hasErrors('shipClass')}? 'has-error'">
+						<label>Class</label> 
+						<select class="form-control" th:field="*{shipClass}" th:remove="all-but-first" >
+							<option th:each="shipClass : ${classes}" 
+									th:value="${shipClass.id}" th:text="${shipClass.code}">List of Classes</option>
+						</select>
+                      <p th:if="${#fields.hasErrors('shipClass')}" th:errors="*{shipClass}" th:class="text-red">Incorrect data</p>
+					</div>
+
+					<div class="box-footer">
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</div>
+					
+				</form>
+			</div>
+			<!-- /.box-body -->
+		</div>
+		<!-- /.box -->
+	</div>
+
+
+</body>
+
+</html>

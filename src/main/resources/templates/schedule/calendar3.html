@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate="layout/mainLayout">
+      <head>
+        <title>Schedule</title>
+    </head>
+    <body>
+    	<div layout:fragment="pageHeader">
+        <section class="content-header">
+        	<span class="text-bold" style="padding: 5px;position: absolute;background-color: #f5f508;">All times are in Eastern Daylight Time (GMT-0500)</span>
+    
+             
+        	<a class="btn btn-primary pull-right" data-placement="left" data-popover-content="#a1" data-toggle="popover" data-trigger="focus" href="#" tabindex="0">LEGENDS / BUSINESS RULES</a>
+
+			<a class="btn btn-primary pull-right"  id="btnSailing" style="margin-right:10px;">Sailing/Itinerary</a>
+						
+        	<div class="hidden" id="a1">
+			  <div class="popover-heading ">
+			    
+			    <div class="text-center text-bold">LEGENDS / BUSINESS RULES</div>
+			  </div>
+	
+	
+   
+			   
+			
+			  <div class="popover-body">
+			<p ><span class="colorbox bg-orange">&nbsp;</span> – Preliminaries for ship running TTG, ENCORE &amp; Fidelio – 8 days </p>
+			<p><span class="colorbox bg-olive">&nbsp;</span> – B/F - Encore (RCI) –4 days </p>
+			<p><span class="colorbox bg-olive">&nbsp;</span> – B/F - Fidelio (RCI) –4 days &amp; 6 hours before Encore </p>
+			<p><span class="colorbox bg-navy">&nbsp;</span> – Final - TTG (CEL) – 4 days</p> 
+			<p><span class="colorbox bg-navy">&nbsp;</span> – Final - Fidelio (CEL) –4 days &amp; 6 hours before TTG</p> 
+			<p><span class="colorbox bg-maroon">&nbsp;</span> – A/F - Encore (RCI) –1 days </p>
+			<p><span class="colorbox bg-maroon">&nbsp;</span> – A/F - Fidelio (RCI) –1 days &amp; 6 hours before Encore</p>
+			<p><span class="colorbox bg-purple">&nbsp;</span> – L/M - TTG (CEL) – 1day </p>
+			<p><span class="colorbox bg-purple">&nbsp;</span> – L/M - Fidelio(CEL) –1 day &amp; 6 hours before TTG</p> 
+			
+			<p>Preliminary - week days only (AZA-9:00 am, CEL-10 am, Royal 11:00 am)</p>
+			<p>Azamara Ships follow Rules for RCI ships with Fidelio</p>
+			<p>Xpedition Ships follow Celebrity TTG rules and only sent on week days</p>
+
+			  
+<!-- 						<p>Color BOX  -Preliminaries for ship running TTG, ENCORE and Fidelio – 8 days</p>  -->
+<!-- 						<p>Color BOX – B/F - Encore (RCCL) –4 days<p> -->
+<!-- 						<p>Color Box – B/F - Fidelio (RCCL) –4 days before and 6 hours before Encore</p>  -->
+<!-- 						<p>Color BOX – Final - TTG (CEL) – 4 days </p> -->
+<!-- 						<p>Color Box – Final - Fidelio (CEL) –4 days before and 6 hours before TTG</p>  -->
+<!-- 						<p>Color BOX – A/F - Encore (RCCL) –1 days</p>  -->
+<!-- 						<p>Color Box – A/F - Fidelio (RCCL) –1 days before and 6 hours before Encore</p> -->
+<!-- 						<p>Color BOX – L/M - TTG (CEL) – 1day</p>  -->
+<!-- 						<p>Color Box – L/M- Fidelio(CEL) –1 day before and 6 hours before TTG</p>  -->
+<!-- 						<p>Azamara Ships follow Rules for RCCL ships with Fidelio</p> -->
+<!-- 						<p>Xpedition Ships follow Celebrity TTG Ships rules</p> -->
+			  </div>
+			</div>
+        	<h1 class="text-center">
+            	Data Card Schedule
+          	</h1>
+        </section>
+        </div>
+       
+        
+    	<div layout:fragment="content">
+	        <div class="row">
+	        <div class="col-md-12">
+              <div class="box box-primary">
+                <div class="box-body">
+                
+                	<div class="">
+				  <br/>
+				  <div class="row">
+				  	<div class="col-sm-12">
+				  		<form class="form-inline">
+				    <div class="form-group">
+				      <label for="ddBrand">Brand:</label>
+				      <select class="form-control" id="brand" >
+				      		<option value="0">All</option>
+							<option th:each="brand : ${brands}"
+									th:value="${brand.id}" th:text="${brand.code}">List of Brands</option>
+						</select>
+				    </div>
+				    <div class="form-group">
+				      <label for="ddBrand">Ship:</label>
+				      <select class="form-control" id="ship">
+				      	<option value="0">All</option>
+							 <!-- <option th:each="ship : ${ships}"
+								th:value="${ship.id}" th:text="${ship.code}">List of Ships</option> -->				      
+					  </select>
+				    </div>
+				    <div class="form-group">
+				      <label for="ddBrand">Transmission Type:</label>
+				      <select class="form-control" id="trans">
+				      		<option value="0">All</option>
+							<!-- <option th:each="tran : ${trans}"
+									th:value="${tran.id}" th:text="${tran.code}">List of Transmissions</option> -->
+					  </select>
+				    </div>
+				    <div class="form-group">
+				      <label for="ddBrand">Region:</label>
+				      <select class="form-control" id="region">
+				      	<option value="0">All</option>
+							<option th:each="region : ${regions}"
+								th:value="${region.id}" th:text="${region.code}">List of Regions</option>				      </select>
+				    </div>
+				    <div class="form-group">
+				      <label for="ddBrand">PMS:</label>
+				      <select class="form-control" id="pms">
+				      	<option value="0">All</option>
+							<option th:each="pms : ${pmss}"
+								th:value="${pms.id}" th:text="${pms.code}">List of PMS</option>				      </select>
+				    </div>
+				    <div class="form-group">
+				      <label for="daterange">Date range:</label>
+				      <input type="text" id="daterange" name="daterange" class="form-control" value="" />
+				    </div>    
+				    <button type="button" class="btn btn-primary" id="search">Search</button>
+				    <button type="button" class="btn btn-default" id="searchReset">Reset</button>
+				    <input type="hidden" id="searchedval" value="0" />
+				    <input type="button" id="refreshCalendar" value="refresh Calendar" class="btn btn-success pull-right" />				    
+				    <input type="button" id="sendEmail" value="Send Email" class="btn btn-success pull-right" />
+				    <input type="hidden" id="ipAddress" th:value="${app.ipAddress}"/>
+				    <input type="hidden" id="serviceLocation" th:value="${app.serviceLocation}"/>				    				    
+				  </form>
+				  		
+				  	</div>
+				  </div>
+				  				</div>
+                
+                	<div id="emailBtn" style="text-align: right; margin: 10px;float: right;">
+                		
+                	</div>
+                  <!-- THE CALENDAR -->
+                  <div id="calendar">
+                  		<h2 id="calLoader"> <i class="fa fa-spin fa-spinner"></i> Loading...</h2>
+                  </div>
+                </div><!-- /.box-body -->
+              </div><!-- /. box -->
+            </div><!-- /.col -->
+            </div>
+    	</div>
+    	
+
+    	
+    	<div layout:fragment="pageLevelScript">
+    	
+    		<div id="SailingModal" class="modal fade" role="dialog">
+			    <div class="modal-dialog">
+			        <div class="modal-content">
+			            <div class="modal-header">
+			                <button type="button" class="close" data-dismiss="modal">&times;</button>
+			                <h4 class="modal-title">Sailing/Itinerary</h4>
+			            </div>
+			            <div class="modal-body">
+			            <div><input id="txtSearch" type="text" placeholder="Search" class="form-control" style="margin-bottom: 10px;border: 2px solid #f1dbab;"/></div>
+			            <div id="parentDiv" style="height:300px;overflow:auto"></div>
+			            </div>
+			            <div class="modal-footer">
+			                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			
+			<div id="ItineraryModal" class="modal fade" role="dialog">
+			    <div class="modal-dialog">
+			        <div class="modal-content">
+			            <div class="modal-header">
+			                <button type="button" class="close" data-dismiss="modal">&times;</button>
+			                <h4 class="modal-title"></h4>
+			            </div>
+			            <div class="modal-body">
+			            <div id="childDiv" style="height:300px;overflow:auto"></div>
+			            </div>
+			            <div class="modal-footer">
+			                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+    	
+			<div id="myModal" class="modal fade" role="dialog">
+			    <div class="modal-dialog">
+			        <div class="modal-content">
+			            <div class="modal-header">
+			                <button type="button" class="close" data-dismiss="modal">&times;</button>
+			                <h4 class="modal-title"><span id="eventTitle"></span></h4>
+			            </div>
+			            <div class="modal-body">
+			                <button id="btnDelete" class="btn btn-default btn-sm pull-right">
+			                    <span class="glyphicon glyphicon-remove"></span> Remove
+			                </button>
+			                <button id="btnEdit" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
+			                    <span class="glyphicon glyphicon-pencil"></span> Edit
+			                </button>
+			                <p id="pDetails"></p>
+			            </div>
+			            <div class="modal-footer">
+			                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			<div id="myModalSave" class="modal fade" role="dialog">
+			    <div class="modal-dialog">
+			        <div class="modal-content" style="min-height:500px">
+			            <div class="modal-header">
+			                <button type="button" class="close" data-dismiss="modal">&times;</button>
+			                <h4 class="modal-title">Add Event</h4>
+			            </div>
+			            <div class="modal-body">
+			                <form class="col-md-12 form-horizontal">
+			                    <input type="hidden" id="hdEventID" value="0" />
+			                    <div class="form-group">
+			                        <label>Subject</label>
+			                        <input type="text" id="txtSubject" class="form-control"/>
+			                    </div>
+			                    <div class="row">
+			                    	<div class="col-sm-5">
+			                    		<div class="form-group">
+			                        <label>Start Date</label>
+			                        <input type="date" id="txtStart" class="form-control" />
+<!-- 			                        <div class="input-group date" id="dtp1"> -->
+<!-- 			                            <input type="datetime-local" id="txtStart" class="form-control" /> -->
+<!-- 			                            <span class="input-group-addon"> -->
+<!-- 			                                <span class="glyphicon glyphicon-calendar"></span> -->
+<!-- 			                            </span> -->
+<!-- 			                        </div> -->
+			                    </div>
+			                    	</div>
+			                    	<div class="col-sm-3 pull-right">
+			                    	<div class="form-group">
+			                        <label>Start Time</label>
+			                        <select id="txtStartTime" name="startTimeDrp" class="form-control">
+			                        	<option>Select</option>
+			                            <option value="00">12 AM</option>
+			                            <option value="01">01 AM</option>
+			                            <option value="02">02 AM</option>
+			                            <option value="03">03 AM</option>
+			                            <option value="04">04 AM</option>
+			                            <option value="05">05 AM</option>
+			                            <option value="06">06 AM</option>
+			                            <option value="07">07 AM</option>
+			                            <option value="08">08 AM</option>
+			                            <option value="09">09 AM</option>
+			                            <option value="10">10 AM</option>
+			                            <option value="11">11 AM</option>
+			                            <option value="12">12 PM</option>
+			                            <option value="13">01 PM</option>
+			                            <option value="14">02 PM</option>
+			                            <option value="15">03 PM</option>
+			                            <option value="16">04 PM</option>
+			                            <option value="17">05 PM</option>
+			                            <option value="18">06 PM</option>
+			                            <option value="19">07 PM</option>
+			                            <option value="20">08 PM</option>
+			                            <option value="21">09 PM</option>
+			                            <option value="22">10 PM</option>
+			                            <option value="23">11 PM</option>
+			                        </select>
+			                    </div>
+			                    	</div>
+			                    </div>
+								
+								<!-- new requirement for extra drop downs -->
+								<div class="row">
+									<div class="col-sm-3">
+										<div class="form-group">
+											<label>Ship</label>
+											<select id="shipAtEventSubmit" class="form-control">
+												<option>Select</option>
+												<option th:each="ship : ${ships}"
+												th:value="${ship.id}" th:text="${ship.code}">List of Regions</option>
+											</select>
+										</div>
+									</div>
+									
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label>Region</label>
+											<select id="regionAtEventSubmit" class="form-control">
+												<option>Select</option>
+												<option th:each="region : ${regions}"
+													th:value="${region.id}" th:text="${region.code}">List of Regions</option>
+											</select>
+										</div>
+									</div>
+									
+									<div class="col-sm-5">
+										<div class="form-group">
+											<label>Transmissions</label>
+											<select id="transmissionAtEventSubmit" class="form-control">
+												<option>Select</option>
+											</select>
+										</div>
+									</div>
+								</div>
+			                    <!-- end of new requirement for extra drop downs -->
+								
+			                    <!-- <div class="form-group">
+			                        <div class="checkbox">
+			                            <label><input type="checkbox" id="chkIsFullDay" checked="checked" />  Is Full Day event</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group" id="divEndDate" style="display:none">
+			                        <label>End</label>
+			                        <div class="input-group date" id="dtp2">
+			                            <input type="text" id="txtEnd" class="form-control" />
+			                            <span class="input-group-addon">
+			                                <span class="glyphicon glyphicon-calendar"></span>
+			                            </span>
+			                        </div>
+			                    </div> -->
+			                    <div class="form-group">
+			                        <label>Description</label>
+			                        <textarea id="txtDescription" rows="3" class="form-control"></textarea>
+			                    </div>
+<!-- 			                    <div class="form-group"> -->
+<!-- 			                        <label>Theme Color</label> -->
+<!-- 			                        <select id="ddThemeColor" class="form-control"> -->
+<!-- 			                            <option value="">Default</option> -->
+<!-- 			                            <option value="red">Red</option> -->
+<!-- 			                            <option value="blue">Blue</option> -->
+<!-- 			                            <option value="black">Black</option> -->
+<!-- 			                            <option value="green">Green</option> -->
+<!-- 			                        </select> -->
+<!-- 			                    </div> -->
+			                    <div class="form-group">
+	                                <div class="checkbox">
+	                                    <label><input id="chkIsCompleted" type="checkbox" />  Is Completed</label>
+	                                </div>
+                            	</div>
+			                    <button type="button" id="btnSave" class="btn btn-success">Save</button>
+			                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			                </form>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			<div id="myModalSendEmail" class="modal fade" role="dialog">
+			    <div class="modal-dialog">
+			        <div class="modal-content" style="min-height:250px">
+			            <div class="modal-header">
+			                <button type="button" class="close" data-dismiss="modal">&times;</button>
+			                <h4 class="modal-title">Send Events To Email</h4>
+			            </div>
+			            <div class="modal-body">
+			                <form class="col-md-12 form-horizontal">
+			                    <input type="hidden" id="hdEventID" value="0" />
+			                    <div class="form-group">
+			                        <label>Email ID</label>
+			                        <span id = "emsg" style="float: right;font-weight: bold;color: red;"> </span>
+			                        <input type="text" id="txtEmail" class="form-control"/>
+			                    </div>
+			                    <div class="checkbox">
+			                       <label><input type="checkbox" id="checkETdTom"/> Check to send Today's and Tomorrow Events</label>
+			                    </div><br />
+			                  
+			                    <button type="button" id="btnEmailSend" class="btn btn-success">Send</button>
+			                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			                </form>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			<input type="hidden" id="chkIsCompletedValue" value="" />
+			
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    	<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+  		<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+  				
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+	    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+		<script type="text/javascript">
+		$(function() {
+		    $('input[name="daterange"]').daterangepicker({
+		    	//autoUpdateInput: false
+		    	"startDate": new Date(),
+		    	"endDate": new Date()
+		    });
+		    
+		});
+		</script>
+			<script>
+			//<![CDATA[
+		    	$(document).ready(function() {
+		    		connect();
+		    		$('#txtStartTime').val('0');
+		    		 LoadShipAndTrans();
+		    		 
+		    		 $("[data-toggle=popover]").popover({
+	    			        html : true,
+	    			        trigger:'hover',
+	    			        container: 'body',
+	    			        content: function() {
+	    			          var content = $(this).attr("data-popover-content");
+	    			          return $(content).children(".popover-body").html();
+	    			        },
+	    			        title: function() {
+	    			          var title = $(this).attr("data-popover-content");
+	    			          return $(title).children(".popover-heading").html();
+	    			        }
+	    			    });
+		    		
+		    		var events = [];
+			           var date = new Date();
+			           var d = date.getDate(),
+			                   m = date.getMonth(),
+			                   y = date.getFullYear();
+			           $('input[name="daterange"]').val("");
+			           
+			           $('#search, .range_inputs .applyBtn').click(function () {
+			        	   setTimeout(function(){
+			        		   searchEvents();
+			        	   },100);
+			           });
+			           $('#searchReset').click(function () {
+			        	   $("#brand").val("0");
+			        	   $("#ship").val("0");
+			        	   $('input[name="daterange"]').val("");
+			        	   $("#searchedval").val('0');
+			        	   FetchEventAndRenderCalendar();
+			           });
+			           
+			         //uday changes
+			         
+                       $('#shipAtEventSubmit').on('change',function(){
+                    	   polpulateTransmissionDropdown();
+                       });
+			         
+			         //populate dropdowns of search criteria dynamically
+                       $('#brand').on('change',function(){
+                    	   LoadShipAndTrans();
+                       });
+
+        
+		    	});
+		    	
+		    	function LoadShipAndTrans(){
+		    		$('#ship').empty();
+             	   $('#trans').empty();
+                   	$('#ship').append($("<option></option>").val(null).html("All"));
+                   	$('#trans').append($("<option></option>").val(null).html("All"));
+                       var brandId = $('#brand').val();
+                       var data = {id: brandId};
+                       if(brandId){
+                           $.ajax({
+                           	type: "POST",
+                           	contentType : "application/json",
+	    	                    url: "/schedule/transAndShipDetails",
+	    	                    data : JSON.stringify(data),
+	    	        			dataType : 'json',
+	    	        			async : false,
+                               success:function(data){
+                             	  $.each(data.ships, function (i, value) {
+	    	                        	$('#ship').append($("<option></option>").val(value.id).html(value.code));
+	    	                        });
+                             	  $.each(data.transmissionTypes, function (i, value) {
+ 	    	                        	$('#trans').append($("<option></option>").val(value.id).html(value.code));
+ 	    	                        });
+                               }
+                           }); 
+                       }
+		    	}
+
+				function connect() {
+					//debugger
+		            // Create and init the SockJS object
+		            var socket = new SockJS('/ws');
+		            var stompClient = Stomp.over(socket);
+
+		            // Subscribe the '/notify' channell
+		            stompClient.connect({}, function(frame) {
+		              stompClient.subscribe('/queue/notify', function(notification) {
+		            	  
+
+						//refresh the page
+		            	// location.reload(true);
+		            	  searchEvents();
+		              });
+		            });
+		            
+		            return;
+		         }
+		    	
+		    	function polpulateTransmissionDropdown() {
+		    		$('#transmissionAtEventSubmit').empty();
+                   	$('#transmissionAtEventSubmit').append($("<option></option>").val(null).html("Select"));
+                       var shipId = $('#shipAtEventSubmit').val();
+                       var data = {id: shipId};
+                       if(shipId){
+                           $.ajax({
+                           	type: "POST",
+                           	contentType : "application/json",
+	    	                    url: "/schedule/transmissionDetails",
+	    	                    data : JSON.stringify(data),
+	    	        			dataType : 'json',
+	    	        			async : false,
+                               success:function(data){
+                               	$.each(data, function (i, value) {
+	    	                        	$('#transmissionAtEventSubmit').append($("<option></option>").val(value.id).html(value.code));
+	    	                        });
+                                   
+                               }
+                           }); 
+                       }
+		    	}
+		    	function searchEvents() {
+		        	   var daterange = $("#daterange").val();
+		        	   var ship = $("#ship").val();
+		        	   var brand = $("#brand").val();
+		        	   
+		        	   var trans = $("#trans").val();
+		        	   var region = $("#region").val();
+		        	   var pms = $("#pms").val();
+		        	   ///alert(daterange);
+		        	   
+		        	   var goto = { currentDate: $('#calendar').fullCalendar('getDate'), view: $('#calendar').fullCalendar('getView').name };
+
+
+		        	   
+		        	   if(ship!= null || brand !=null) {
+		        		   var data = {
+		        				   brandId:brand,shipId:ship,dateRange:daterange,transmissionTypeId: trans,
+		        		   
+		        				   regionId: region, pmsId:pms 
+		        				   };
+		        		   
+		        		   $.ajax({
+			                    type: "POST",
+			                    contentType : "application/json",
+			                    url: '/schedule/searchEvents',
+			                    data : JSON.stringify(data),
+			        			dataType : 'json',
+			                    success: function (data) {
+			                    	$("#searchedval").val('1');
+			                    	$('#calendar').fullCalendar('destroy');
+			    	            	events = [];
+			                    	$.each(data, function (i, v) {
+			                    		
+			                        	//var d = new Date();
+			                        	//var startDate = new Date(v.startDate);
+			                        	//var startDate = new Date(v.startDate +' ' +v.startTime + ':00:00');		                        	
+			                        	//debugger;
+			                        	//startDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), parseInt(v.startTime), 00, 0)
+			                        	var lf = "YYYY-MM-DD[T]HH:mm:ss";
+			                        	//startDate = moment.utc([startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), parseInt(v.startTime)]);
+			                        	var startDate = moment(v.startDate +' ' +v.startTime + ':00:00').format(lf);
+			                        	console.log(v.startDate,'--------------',startDate);
+			                            events.push({
+			                            	eventID: v.id,
+			                            	title: v.title,
+			                            	description: v.description,
+			                                start: startDate, //moment(v.startDate),
+			                                time: v.startTime,
+			                                borderColor: "#f56954",
+			                                color: v.status == '1' ? "#ff6262" : "#61ca61",
+			                                status: v.status,
+			                                className: v.color + ' fa ' + (v.status == '1'? 'completed': '')
+			                            });
+			                        });
+			                        GenerateCalender(events,goto);
+			                    },
+			                    error: function (data) {
+			                    	alert("An error occured: " + data.status + " " + data.statusText);
+			                    }
+			                }).done(function(){
+			                	$('#calLoader').remove();
+			                })
+		        	   }
+		           }
+		    	
+		    	function openAddEditForm() {
+		    		debugger
+	                if (selectedEvent != null) {
+	                    $('#hdEventID').val(selectedEvent.eventID);
+	                    $('#txtSubject').val(selectedEvent.title);
+	                   
+	                    var startDate = selectedEvent.start.format('YYYY-MM-DD');
+	                    var time = selectedEvent.time;
+	                    document.getElementById("txtStart").value = startDate;// + "T"+time;
+	                    document.getElementById("txtStartTime").value = time;
+	                    //$('#txtStart').val(selectedEvent.start.format('YYYY/MM/DD'));
+	                    var checkVal = $('#chkIsCompletedValue').val();
+	                    if(null != checkVal && checkVal !="") {
+	                    	$('#chkIsCompleted').prop("checked", checkVal == '1' ? true : false);
+	                    } else {
+	                    	$('#chkIsCompleted').prop("checked", selectedEvent.status == '1' ? true : false);
+	                    }
+	                   // $('#chkIsFullDay').change();
+	                   // $('#txtEnd').val(selectedEvent.end != null ? selectedEvent.end.format('DD/MM/YYYY HH:mm A') : '');
+	                    $('#txtDescription').val(selectedEvent.description);
+	                    //$('#ddThemeColor').val(selectedEvent.color);
+	                    //populate the values in dropdown from db
+	                    if (selectedEvent.eventID != 0) {
+							var data = {id: selectedEvent.eventID};
+							$.ajax({
+								type: "POST",
+								contentType : "application/json",
+								url: '/schedule/getEditEvents',
+								data : JSON.stringify(data),
+								dataType : 'json',
+								success: function (data) {
+									debugger
+									//set start time
+									$("#txtStartTime").val(data.startTime).attr("selected", "selected");
+									var stTime = $('#txtStartTime :selected').text();
+									$('#select2-txtStartTime-container').text(stTime);
+									//set ship_id
+									$("#shipAtEventSubmit").val(data.ship_id).attr("selected", "selected");
+									var ship = $('#shipAtEventSubmit :selected').text();
+									$('#select2-shipAtEventSubmit-container').text(ship);
+									//set region
+									$("#regionAtEventSubmit").val(data.region_id).attr("selected", "selected");
+									var reg = $('#regionAtEventSubmit :selected').text();
+									$('#select2-regionAtEventSubmit-container').text(reg);
+									//fire the ship-id on-change event
+									$('#shipAtEventSubmit').trigger('change');
+									//set transmission
+									$('#transmissionAtEventSubmit').val(data.transmission_type_id).attr("selected", "selected");
+									var trans = $('#transmissionAtEventSubmit :selected').text();
+									$('#select2-transmissionAtEventSubmit-container').text(trans); 
+								},
+								error: function (data) {
+									alert('Failed');
+								}
+							});
+						}
+	                    
+	                    /* var data = {id:selectedEvent.eventID};
+	                    $.ajax({
+		                    type: "GET",
+		                    contentType : "application/json",
+		                    url: '/schedule/getEditEvents',
+		                    data : JSON.stringify(data),
+		        			dataType : 'json',
+		                    success: function (res) {
+		                        $('#txtStartTime').val() = res.startTime;
+		                        $('#shipAtEventSubmit').val() = res.ship_id;
+		                        $('#regionAtEventSubmit').val() = res.region_id;
+		                        $('#transmissionAtEventSubmit').val() = res.transmission_type_id;
+		                    },
+		                    error: function () {
+		                    	alert("An error occured while getting the edited results");
+		                    }
+		                }); */
+	                }
+	                $('#myModal').modal('hide');
+	                $('#myModalSave').modal();
+	            }
+		    	
+		    	$('#btnSailing').click(function () {
+	        //        $('#SailingModal').modal('hide');							
+	        				var data = {id: 0};
+							$.ajax({
+								type: "POST",
+								contentType : "application/json",
+								url: '/sailing/sailing',
+								data : JSON.stringify(data),
+								dataType : 'json',
+								success: function (data) {
+									var $parent = $('#parentDiv');
+									var $table = $('<table id="myTable"/>').addClass('table table-responsive table-sailing');
+									var $rowHeader = $('<tr/>');
+									$rowHeader.append('<th>Port</th>');
+									$rowHeader.append('<th>Sailing Date</th>');
+									$rowHeader.append('<th>Ship</th>');
+									$rowHeader.append('<th>View Itinary</th>');
+									$table.append($rowHeader);
+									if(data){
+									data.forEach(d => {
+									var $row = $('<tr/>').addClass('data');
+									$row.append('<td>'+ d.embarkingPort +'</td>');
+									$row.append('<td>'+ d.sailingDate +'</td>');
+									$row.append('<td>'+ d.ship+'</td>');
+									$row.append('<td><button class="viewitinary" rel="popover" data-id="'+d.cruisePackageCode+'" data-saildate="'+d.sailingDate+'">View Itinary</button></td>');
+									$table.append($row);
+									});
+									}
+									$parent.empty();
+									$parent.append($table);									
+									console.log(data);
+								},
+								error: function (data) {
+									alert('Failed');
+								}
+							});
+	                $('#SailingModal').modal();
+	                
+
+		    	})
+		    	$("#txtSearch").keyup(function() {
+				    var search = $("#txtSearch").val();
+				    var t = $("#parentDiv tr");
+				    t.show();
+				    var filter = $("#txtSearch").val().toUpperCase();
+				    var rows = document.querySelector("#myTable").rows;    
+				    for (var i = 0; i < rows.length; i++) {				    		
+				        if(rows[i].className == "data"){
+				        	var Col1 = rows[i].cells[0].textContent.toUpperCase();
+					        var Col2 = rows[i].cells[1].textContent.toUpperCase();
+					        var Col3 = rows[i].cells[2].textContent.toUpperCase();
+					       // console.log(firstCol, secondCol)
+					        if (Col1.indexOf(filter) > -1 || Col2.indexOf(filter) > -1|| Col3.indexOf(filter) > -1) {
+					            rows[i].style.display = "";
+					        } else {
+					            rows[i].style.display = "none";
+					        }     
+				        }         
+				    }    
+				    
+			  });
+		    	
+		    	var popOverSettings = {
+				    placement: 'right',
+				    container: 'body',
+				    html: true,
+				    trigger: 'focus',
+				    selector: '[rel="popover"]',
+				    content: function () {
+				         var div_id =  "tmp-id-" + $.now();
+				        return details_in_popup($(this).attr('data-id'),$(this).attr('data-saildate'), div_id);
+				    }
+				}
+				function details_in_popup(id, saildate, div_id){
+		    		//alert('details_in_popup');
+				    $.ajax({
+				        url: '/itinerary/'+id+'/'+saildate,
+				        contentType : "application/json",
+				        type: "GET",
+				        success: function(response){
+				        	console.log('----------------------------------------', response);
+				        	var $parent = $('<div/>');
+							var $table = $('<table/>').addClass('table table-responsive table-sailing table-stripped table-hover table-bordered');
+							var $rowHeader = $('<tr/>');
+							$rowHeader.append('<th>Itinerary Date<th>');
+							$rowHeader.append('<th>Port Code<th>');
+							$rowHeader.append('<th>Port Name<th>');
+							//$rowHeader.append('<th>Sail Date<th>');
+							$table.append($rowHeader);
+							if(response){
+								response.forEach(d => {
+								if(d.portCode.trim() !=''){
+									var $row = $('<tr/>');
+									$row.append('<td>'+ d.itineraryDate +'<td>');
+									$row.append('<td>'+ d.portCode +'<td>');
+									$row.append('<td>'+ d.portName+'<td>');
+									//$row.append('<td>'+ d.sailDate +'<td>');
+									$table.append($row);
+								}
+							});
+							}
+							$parent.empty();
+							$parent.append($table);		
+				            $('#'+div_id).html($parent);
+				        },
+				        error: function(error){
+				        	 setTimeout(function(){
+				           	$('#'+div_id).html('Error');
+				           },2000)
+				        }				        
+				    });
+				    return '<div class="wf" id="'+ div_id +'">Loading...</div>';
+				}
+			
+			$('body').popover(popOverSettings);
+		    	
+		    	
+		    	$('#btnSave').click(function () {
+		    		debugger
+		    		//Validation/
+		    		//alert('btnSave');
+		    		
+		    		//alert('transmission type:'+ $('#transmissionAtEventSubmit').val());
+	                if ($('#txtSubject').val().trim() == "") {
+	                    alert('Subject required');
+	                    return;
+	                }
+	                if ($('#txtStart').val() == "") {
+	                    alert('Start date required');
+	                    return;
+	                }
+	                if ($('#txtStartTime').val() == null || $('#txtStartTime').val() == "") {
+	                    alert('Start time required');
+	                    return;
+	                }
+	               
+	                if ($('#transmissionAtEventSubmit').val() == null || $('#transmissionAtEventSubmit').val() == "") {
+	                    alert('Transmission type requried');
+	                    return;
+	                }
+	               
+	                var dt = $('#txtStart').val();
+	            
+	                var data = {
+	                    id: $('#hdEventID').val(),
+	                    title: $('#txtSubject').val().trim(),
+	                    startDate: dt,
+	                    startTime: $('#txtStartTime').val(),
+	                    status: $('#chkIsCompleted').is(':checked') ? 1 : 0,
+	                    description: $('#txtDescription').val().trim(),
+	                    ship_id: $('#shipAtEventSubmit').val(),
+	                    region_id: $('#regionAtEventSubmit').val(),
+	                    transmission_type_id: $('#transmissionAtEventSubmit').val(),
+	                    isManualEntry: 1
+	                    //ThemeColor: $('#ddThemeColor').val()
+	                }
+	                //alert('data: ID: ' + data.id + ' Title: ' + data.title + ' Trasmission type: ' + data.transmission_type_id+ '  region: ' + data.region_id);
+	                SaveEvent(data);
+	                // call function for submit data to the server 
+	            })
+	            function SaveEvent(data) {
+		    		console.log(data);
+		    		//alert('SaveEvent');
+	                $.ajax({
+	                    type: "POST",
+	                    contentType : "application/json",
+	                    url: '/schedule/SaveEvent',
+	                    data : JSON.stringify(data),
+	        			dataType : 'json',
+	                    success: function (res) {
+	                        if (res.status == "Done") {
+	                            //Refresh the calender
+	                            FetchEventAndRenderCalendar();
+	                            $('#myModalSave').modal('hide');
+	                        }
+	                    },
+	                    error: function (res) {
+	                    	alert("An error occured: " + res.status + " " + res.statusText);
+	                    }
+	                })
+	            }
+		    	
+// 		    	var selectedBrand = 0;
+// 		    	$('#brand option').each(function(i,ele){
+// 		    		if(selectedBrand == 0 && parseInt($(ele).val()) > 0){
+// 		    			selectedBrand = parseInt($(ele).val());
+// 		    		}
+// 		    	})
+// 		    	console.log(selectedBrand);
+// 		    	$("#brand").val(selectedBrand);
+		    	FetchEventAndRenderCalendar();
+		    	
+	            function FetchEventAndRenderCalendar() {
+	            	searchEvents();
+// 	            	$('#calendar').fullCalendar('destroy');
+// 	            	events = [];
+// 	                $.ajax({
+// 	                    type: "GET",
+// 	                    url: "/schedule/events",
+// 	//                    dataType: 'json',
+// 	                    success: function (data) {
+// 	                        $.each(data, function (i, v) {
+// 	                        	var d = new Date();
+// 	                            events.push({
+// 	                            	eventID: v.id,
+// 	                            	title: v.title,
+// 	                            	description: v.description,
+// 	                                start: moment(v.startDate),
+// 	                                time: v.startTime,
+// 	                                borderColor: "#f56954",
+// 	                                color: v.status == '1' ? "#ff6262" : "#61ca61",
+// 	                                status: v.status
+// 	                            });
+// 	                        });
+// 	                        GenerateCalender(events);
+	                        
+// 	                    },
+// 	                    error: function(data){
+// 	                        alert("Unable to Pupulate Calendar.");
+// 	                    }
+// 	                });
+	            }
+	            
+	            $('#sendEmail').click(function () {
+	            	$('#btnEmailSend').prop("disabled",false);
+	            	$('#txtEmail').css("border-color","#d2d6de");
+	            	$('#emsg').text("");
+		    		$('#txtEmail').val('');
+		    		$('#checkETdTom').prop("checked",false);
+		    		$('#myModal').modal('hide');
+	                $('#myModalSave').modal('hide');
+	                $('#myModalSendEmail').modal();
+	                $('#txtEmail').focus();
+		    	});
+		    	//Send email method
+	            $('#btnEmailSend').click(function () {
+	            	
+	            	
+	            	var daterange = $("#daterange").val();
+		        	   var ship = $("#ship").val();
+		        	   var brand = $("#brand").val();
+		        	   
+		        	   var trans = $("#trans").val();
+		        	   var region = $("#region").val();
+		        	   var pms = $("#pms").val();
+		        	  
+		        	   
+		        		   
+	            	
+	            	
+	            	$('#emsg').text("Sending Email...");
+	            	$('#emsg').css("color","black");
+	            	$('#btnEmailSend').prop("disabled",true);
+	            	
+    	                var email = $('#txtEmail').val().trim();
+    	                if(email != null && email.length != 0) {
+    	                	//TODO: validation of email
+    	                	var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    						if (!filter.test(email)) {
+    							$('#emsg').css("color","red");
+    							$('#btnEmailSend').prop("disabled",false);
+    							$('#txtEmail').css("border-color","red");
+    							$('#emsg').text('Please provide a valid email address');
+    							$('#txtEmail').focus();
+    						} else {
+    							$('#txtEmail').css("border-color","#d2d6de");
+    							var data =[];
+        	                	var checked = $('#checkETdTom').is(':checked') ? '1' : '0';
+        	                	var val = {email: email, schedule: data, checked: checked, brandId:brand,shipId:ship,dateRange:daterange,transmissionTypeId: trans, regionId: region, pmsId:pms  }
+        	                        $.ajax({
+        	                            type: "POST",
+        	                            contentType : "application/json",
+        	                            url: '/schedule/sendEmail',
+        	                            data : JSON.stringify(val),
+        	    	        			dataType : 'json',
+        	                            success: function (data) {
+        	                            	$('#emsg').css("color","red");
+        	                                if (data.status == "Done") {
+        	                                	$('#btnEmailSend').prop("disabled",false);
+        	                                    $('#myModalSendEmail').modal('hide');
+        	                                } else if (data.status == "Nodata") {
+        	                                	$('#emsg').text('No Data found to send email!');
+        	                                	$('#btnEmailSend').prop("disabled",false);
+        	    	                        } else {
+        	                                	$('#emsg').text('Uable to send email. Please check settings!');
+        	                                	$('#btnEmailSend').prop("disabled",false);
+        	                                }
+        	                                
+        	                            },
+        	                            error: function (data) {
+        	                            	$('#emsg').css("color","red");
+        	                            	$('#btnEmailSend').prop("disabled",false);
+        	                            	$('#emsg').text('Uable to send email. Please check settings!');
+        	                            }
+        	                        });
+    						}
+    	                	
+    	                } else {
+    	                	$('#emsg').css("color","red");
+                        	$('#btnEmailSend').prop("disabled",false);
+    	                	$('#txtEmail').css("border-color","red");
+    	                	$('#emsg').text('Please provide an email address');
+							$('#txtEmail').focus();
+    	                }
+	            	
+                    
+                })
+	            
+	            $('#btnEdit').click(function () {
+	                //Open modal dialog for edit event
+	                openAddEditForm();
+	            })
+	            
+	            function changeStatus(id) {
+	            	//alert('changeStatus');
+	            	var status= $('#chkIsCompletedEd').is(':checked') ? 1 : 0;
+	            	//alert("hhhh "+id + " "+status);
+	            	var data = {id: id, status: status};
+	            	$.ajax({
+	                    type: "POST",
+	                    contentType : "application/json",
+	                    url: '/schedule/changeStatus',
+	                    data : JSON.stringify(data),
+	                    dataType : 'json',
+	                    success: function (res) {
+	                        if (res.status == "Done") {
+	                            //Refresh the calender
+	                            if($("#searchedval").val() == '1') {
+	                            	searchEvents();
+	                            } else {
+	                            	FetchEventAndRenderCalendar();
+	                            }
+	                            $('#chkIsCompletedValue').val($('#chkIsCompletedEd').is(':checked') ? '1' : '0');
+	                        }
+	                    },
+	                    error: function (res) {
+	                    	alert("An error occured: " + res.status + " " + res.statusText);
+	                    }
+	                })
+	            	
+		    	}
+// 		    	$('#chkIsCompletedEd').change(function () {
+// 	                if ($(this).is(':checked')) {
+// 	                    alert("hhhh");
+// 	                }
+// 	                else {
+	                    
+// 	                }
+// 	            });
+		    	
+		    	
+		    	$('#refreshCalendar').click(function () {					
+		    		
+					document.getElementById("refreshCalendar").disabled=true;
+		    		
+					var ipAddress = document.getElementById("ipAddress").value;
+					///var urlStr = "http://"+ipAddress + "/DataCard/refreshCalendar";
+										
+	                //Open modal dialog for edit event
+	                var isWithOutLogin = $('body').hasClass('notlogedin');
+	                
+	                if (!isWithOutLogin)
+	                {
+	                	 $.ajax({
+	                            type: "GET",
+	                            contentType : "application/json",
+	                            url: '/schedule/refreshCalendar',
+	                            //url: urlStr,	                            
+	    	        			dataType : 'json',
+	                            success: function (res) {
+	                            	if (res.status == "Done")
+	                            		alert(res.data.status);
+	                            },
+	                            error: function (res) {
+	                            	alert(res.data.status);
+	                            }
+	                        }); 	                      	                    
+	                }
+	                else
+	                	alert('Please login as admin...');
+	                return;
+	            })
+		    	
+	            
+	            
+	            function xxxx(res)
+	            {
+	            	 alert('successful execution: ');
+                     alert('status: '+ res.sr.status);
+	            }
+	            
+	          
+		     
+	            function yyyy (jqXHR, textStatus, errorThrown)
+	            {
+	            	 alert('failed execution update calendar: ');
+	            	 alert('here 1');
+	            	 
+	            	  alert('jqXHR.status: '+jqXHR.status);
+		                alert('textStatus: '+textStatus);
+		                alert('errorThrown: '+errorThrown);
+	            }
+		    	
+		    	
+	            $('#btnDelete').click(function () {
+                    //alert('btnDelete');
+                    if (selectedEvent != null && confirm('Are you sure?')) {
+                    	var data = {id: selectedEvent.eventID, isManualDelete: 1, isManualEntry: 1};
+                        $.ajax({
+                            type: "POST",
+                            contentType : "application/json",
+                            url: '/schedule/del',
+                            data : JSON.stringify(data),
+    	        			dataType : 'json',
+                            success: function (data) {
+                                if (data.status == "Done") {
+                                    //Refresh the calender
+                                    FetchEventAndRenderCalendar();
+                                    $('#myModal').modal('hide');
+                                }
+                            },
+                            error: function (data) {
+                                alert('Failed');
+                            }
+                        });
+                    }
+                })
+
+		    		function GenerateCalender(events, goto){
+	            	
+	            	
+
+		    			//console.log("---->", events);
+//		    			console.log("---->", events.length);
+// 						events=[{
+//    			                eventID:2, 
+// 							title: 'OASIS VOYAGE 2025',
+// 			                 start: new Date(),
+// // 			                 backgroundColor: "#f56954", //red
+// 			                 borderColor: "#f56954" //red
+// 						},{
+//    			                eventID:20, 
+// 							title: 'OASIS VOYAGE 2025',
+// 			                 start: new Date(),
+// // 			                 backgroundColor: "#f56954", //red
+// 			                 borderColor: "#f56954" //red
+// 						}];
+						
+// 				           var date = new Date();
+// 				           var d = date.getDate(),
+// 				                   m = date.getMonth(),
+// 				                   y = date.getFullYear();
+//				           $('#calendar').fullCalendar('destroy');
+				           $('#calendar').fullCalendar({
+			                    contentHeight: 700,	
+			                    defaultDate: new Date(),
+			                    timeFormat: 'h(:mm)a',
+			                    timezone:'America/New_York',
+				             header: {
+				               left : 'title',
+				               right : 'month,agendaWeek,basicDay,prev,next today',
+				               center: ''
+		// 		               right: 'month,agendaWeek,agendaDay'
+				             },
+// 			                    eventLimit: true,
+//			                    eventColor: '#378006',
+				             buttonText: {
+				               today: 'Today',
+				               month: 'Month',
+				               week: 'Week',
+				               day: 'Day'
+				             },
+				             events: events,
+//				             lazyFetching: true
+				             
+				             eventClick : function (calEvent, jsEvent, view) {
+				            	 	//alert('eventClick');
+			                        selectedEvent = calEvent;
+			                        //console.log(selectedEvent);
+			                        
+			                        var cc = 0;
+			                        cc += $('body').hasClass('notlogedin')? 1: 0;
+			                        cc += $('body').hasClass('canComplete')? 1: 0;
+			                        
+			                        if(!(cc == 1)){
+			                        	 $('#myModal #eventTitle').text(calEvent.title);
+					                        var $description = $('<div/>');
+					                        $description.append($('<p/>').html('<b>Start: </b>' + calEvent.start.format("YYYY-MM-DD")));
+					                        $description.append($('<p/>').html('<b>Description: </b>' + calEvent.description));
+					                        $description.append($('<p/>').
+					                        		html("<input id='chkIsCompletedEd' type='checkbox' onclick='changeStatus("+calEvent.eventID+");' /> <b> Is Completed</b>"));
+					                        $('#myModal #pDetails').empty().html($description);
+					                        $('#chkIsCompletedEd').prop("checked", calEvent.status == 1 ? true : false);
+					                        $('#chkIsCompletedValue').val('');
+					                        $('#myModal').modal();
+			                        }
+			                        
+			                    },
+				             
+				             dayClick : function (calEvent, jsEvent, view) {
+			                       /* selectedEvent = calEvent;
+			                        console.log(selectedEvent);
+			                        $('#myModal #eventTitle').text(calEvent.title);
+			                        var $description = $('<div/>');
+			                        console.log($description);
+			                        $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start));
+			                        $description.append($('<p/>').html('<b>Description:</b>' + calEvent.description));
+			                        $('#myModal #pDetails').empty().html($description);
+			                        console.log(myModal);
+									
+			                        $('#myModal').modal();
+			                        */
+			                        //alert('dayClick');
+			                        var isWithOutLogin = $('body').hasClass('notlogedin');
+			                    	if(!isWithOutLogin){
+				            	 		selectedEvent = {
+				                            eventID: 0,
+				                            title: '',
+				                            description: '',
+				                            start: calEvent,
+				                            end: calEvent,
+				                            time: '',
+				                            //allDay: false,
+				                            color: ''
+				                        };
+				                       openAddEditForm();
+			                    	}
+				                        $('#calendar').fullCalendar('unselect');
+			                    },
+			                    selectable: false,
+			                    select: function (start, end) {
+			                    	var isWithOutLogin = $('body').hasClass('notlogedin');
+			                    	if(!isWithOutLogin){
+				                        selectedEvent = {
+				                            eventID: 0,
+				                            title: '',
+				                            description: '',
+				                            start: start,
+				                            end: end,
+				                            //allDay: false,
+				                            time: '',
+				                            color: ''
+				                        };
+				                        openAddEditForm();
+			                    	}
+			                        $('#calendar').fullCalendar('unselect');
+			                    },
+			                    editable: false,
+			                    eventDrop: function (event) {
+// 			                        var data = {
+// 			                            id: event.eventID,
+// 			                            title: event.title,
+// 			                            startDate: event.start.format('YYYY-MM-DD'),
+// 			                            startTime: event.time,
+// 			                            description: event.description,
+// 			                            status: event.status
+// 			                        };
+// 			                        SaveEvent(data);
+			                    }
+		             
+		           		});
+				           
+				           if (goto != null) {
+				               $('#calendar').fullCalendar('gotoDate', moment(goto.currentDate));
+				               $('#calendar').fullCalendar('changeView', goto.view);
+				           }
+		           }
+	//	    	});
+	// ]]>
+		   </script> 
+		   <style>
+		   button.viewitinary:focus {
+			    background: #00c0ef;
+			    color: #fff;
+			    font-weight: bold;
+			}
+			.popover .arrow {
+			    top: 20px !important;
+			}
+		   .wf{
+		   	width:100%;
+		   	max-height:300px;
+		   	overflow:auto;
+		   }
+		   .popover{
+			   max-width:700px !important;
+			   width:700px !important;
+		   }
+		   .completed:after{
+		   		    content: "\f00c";
+				    position: absolute;
+				    top: 0;
+				    right: 6px;
+		   }
+		   .fc-event{position:relative;}
+		   .fc-day-grid-event{
+		   	font-weight:bold;
+		   }
+		   .modal-content{
+		   	webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+			    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+			    border-radius: 6px;
+		   }
+		   .modal-header {
+			    border-bottom-color: #f4f4f4;
+			    background-color: #3c8dbc !important;
+			    border-top-right-radius: 6px;
+    			border-top-left-radius: 6px;
+			}
+			
+			.modal-title{
+				color:#fff;
+			}
+			.fc-view-container {
+			    border-left: 1px solid #dddddd;
+			    border-right: 1px solid #dddddd;
+			}
+			.popover {
+			    width: 500px;
+			    max-width:500px;
+			}
+			.colorbox{
+			    width: 40px;
+			    height: 20px;
+			    display: inline-block;
+			}
+			a.edited::before {
+			    content: "\f040";
+			    float: left;
+			    margin: 0 5px;
+			}
+		   </style>
+		</div>
+    </body>
+    
+</html>

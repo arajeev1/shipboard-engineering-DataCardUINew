@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorate="layout/mainLayout">
+      
+      <head>
+        <title>Folio Details</title>
+    </head>
+    <body>
+        
+    	<div layout:fragment="content">
+	        <div class="row">
+            <div class="col-md-12">
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">Guest Folio Details</h3>
+
+                </div><!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                  <table class="table table-hover">
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Pax Number</th>
+                      <th>Billing No</th>
+                      <th>Check No</th>
+                      <th>Dept Name</th>
+                      <th>Sales Date</th>
+                      <th>Sales Time</th>
+                      <th>Sales Details</th>
+                      <th>Cruise ID</th>
+                    </tr>
+                    <tr th:each="paxSale,iterStat : ${paxSales}">
+                      <td th:text="${iterStat.count}">1</td>
+                      <td th:text="${paxSale.passNo}">Pax Number</td>
+                      <td th:text="${paxSale.billingNo}">Billing No</td>
+                      <td th:text="${paxSale.checkNum}">Check No</td>
+                      <td th:text="${paxSale.shipDept}">Dept Name</td>
+                      <td th:text="${paxSale.saleDate}">Sales Date</td>
+                      <td th:text="${paxSale.saleTime}">Sales Time</td>
+                      <td th:text="${paxSale.saleDtl}">Sales Details</td>
+                      <td th:text="${paxSale.cruiseID}">Cruise ID</td>
+                    </tr>
+                    
+                  </table>
+                </div><!-- /.box-body -->
+                
+              </div><!-- /.box -->
+              </div>
+              </div>
+    	</div>
+  
+            
+    </body>
+    
+</html>

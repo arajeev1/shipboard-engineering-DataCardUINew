@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorate="layout/mainLayout">
+      
+      <head>
+        <title>Transmission Types</title>
+    </head>
+    <body>
+        
+    	<div layout:fragment="content">
+	        <div class="row">
+            <div class="col-md-12">
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">List of Transmission Types</h3>
+                  <div class="box-tools">
+                    <div class="input-group" style="width: 150px;">
+                    	<a class="btn btn-sm btn-default" th:href="@{/transmissionTypes/new}"><i class="fa fa-plus-circle"></i> New Transmission Type</a>
+                    </div>
+                  </div>
+                </div><!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                  <table id="global_table" class="table table-hover">
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Code</th>
+                      <th>Description</th>
+                      <th>Off Set Days</th>
+                      <th>Off Set Hours</th>
+                      
+                    </tr>
+                    <tr th:class="${transmissionType.style}" th:each="transmissionType,iterStat : ${transmissionTypes}">
+                      <td><a th:href="@{/transmissionTypes/{id}(id=${transmissionType.id})}"><span th:text="${iterStat.count}">1</span></a></td>
+                      <td th:text="${transmissionType.code}">Code</td>
+                      <td th:text="${transmissionType.description}">Description</td>
+                      <td th:text="${transmissionType.offSetTransmission}">Off Set Days</td>
+                      <td th:text="${transmissionType.offSetTransmissionHours}">Off Set Hours</td>
+                      <td><a th:href="@{/transmissionTypes/{id}(id=${transmissionType.id})}" class="btn btn-sm btn-default"><i class="fa fa-edit"></i> Edit</a></td>
+                    </tr>
+                    
+                  </table>
+                </div><!-- /.box-body -->
+                
+              </div><!-- /.box -->
+              </div>
+              </div>
+
+    	</div>
+  
+            
+    </body>
+    
+</html>

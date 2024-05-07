@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	layout:decorate="layout/mainLayout">
+
+<head>
+<title>Events - New</title>
+</head>
+<body>
+	<div layout:fragment="pageHeader">
+		<section class="content-header">
+			<h1>Manage Schedules</h1>
+		</section>
+	</div>
+
+	<div layout:fragment="content">
+
+		<div class="box box-warning">
+			<div class="box-header with-border">
+				<h3 class="box-title">Create New Schedule</h3>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body">
+				<form role="form" th:action="@{/schedules/new}" th:object="${schedule}" method="post">
+<!-- 					<p th:if="${#fields.hasErrors('global')}" th:errors="*{global}" th:class="text-red">Incorrect data</p> -->
+					
+					<div class="form-group">
+						<label>User</label> 
+<!-- 						<select class="form-control" th:field="*{user}" th:remove="all-but-first" th:classappend="${#fields.hasErrors('user')}? 'has-error'"> -->
+						<select class="form-control" th:field="*{user}" th:remove="all-but-first" >
+							<option th:each="user : ${user}"
+									th:value="${user.id}" th:text="${user.name}">List of Users</option>
+						</select>
+<!-- 						<input type="text" class="form-control" name="empid" th:field="*{empid}" placeholder="Enter User Id" /> -->
+<!-- 						<p th:if="${#fields.hasErrors('user')}" th:errors="*{user}" th:class="text-red">Incorrect data</p> -->
+					</div>
+					
+					<!-- text input -->
+					<div class="form-group" th:classappend="${#fields.hasErrors('title')}? 'has-error'">
+							<label>Title</label> 
+							<input type="text" class="form-control" name="title" th:field="*{title}" placeholder="Enter The Title" />
+							<p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" th:class="text-red">Incorrect data</p>
+					</div>
+
+
+					<div class="form-group" th:classappend="${#fields.hasErrors('description')}? 'has-error'">
+						<label>Description</label> 
+						<input type="text" class="form-control" name="description" th:field="*{description}" placeholder="Enter The Event Desc" />
+						<p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" th:class="text-red">Incorrect data</p>
+					</div>
+
+					<div class="form-group" >
+						<label class="control-label" for="date" >Start Date</label> 
+						<input type="date" class="form-control" id="startDate" name="startDate" th:field="*{startDate}" placeholder="Enter Start Date(MM-DD-YYY)" />
+<!-- 						<p th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" th:class="text-red">Incorrect data</p> -->
+					</div>
+
+					<div class="form-group" th:classappend="${#fields.hasErrors('startTime')}? 'has-error'">
+						<label>Start Time</label> 
+						<input type="text" class="form-control" name="startTime" th:field="*{startTime}" placeholder="Enter The Start time" />
+						<p th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTime}" th:class="text-red">Incorrect data</p>
+					</div>
+
+					<div class="form-group" th:classappend="${#fields.hasErrors('status')}? 'has-error'">
+						<label>Status</label> 
+						<input type="text" class="form-control" name="status" th:field="*{status}" placeholder="Enter The Status" />
+						<p th:if="${#fields.hasErrors('status')}" th:errors="*{status}" th:class="text-red">Incorrect data</p>
+					</div>
+
+					<div class="box-footer">
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</div>
+					
+				</form>
+			</div>
+			<!-- /.box-body -->
+		</div>
+		<!-- /.box -->
+	</div>
+
+</body>
+
+</html>

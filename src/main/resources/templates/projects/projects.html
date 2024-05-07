@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorate="layout/mainLayout">
+      
+      <head>
+        <title>projects</title>
+    </head>
+    <body>
+        
+    	<div layout:fragment="content">
+	        <div class="row">
+            <div class="col-md-12">
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">List of Projects</h3>
+                  <div class="box-tools">
+                    <div class="input-group" style="width: 150px;">
+                    	<a class="btn btn-sm btn-default" th:href="@{/projects/new}"><i class="fa fa-plus-circle"></i> New project</a>
+                    </div>
+                  </div>
+                </div><!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                  <table class="table table-hover">
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th>Assigned</th>
+                      <th>Size</th>
+                      <th>Edit</th>
+                    </tr>
+                    <tr th:each="project,iterStat : ${projects}">
+                      <td><a th:href="@{/projects/{id}(id=${project.id})}"><span th:text="${iterStat.count}">1</span></a></td>
+                      <td th:text="${project.name}">Name</td>
+                      <td th:text="${project.description}">Description</td>
+<!--                       <td th:text="${project.users}">Assigned</td> -->
+     				<td th:if="${project.users != null}">
+     					<ul>
+     						<li th:each="user : ${project.users}" th:text="${user.name}"> User  </li>		
+						</ul>
+      				</td>
+                      <td th:text="${project.size}">Size</td>
+                      <td><a th:href="@{/projects/{id}(id=${project.id})}" class="btn btn-sm btn-default"><i class="fa fa-edit"></i> Edit</a></td>
+                    </tr>
+                    
+                  </table>
+                 </div><!--/.box-body -->
+                
+              </div><!-- /.box -->
+              </div>
+              </div>
+              
+    	</div>
+    	
+    </body>
+    
+</html>

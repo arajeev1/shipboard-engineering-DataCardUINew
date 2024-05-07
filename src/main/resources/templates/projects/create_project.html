@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorate="layout/mainLayout">
+      
+      <head>
+<!--       <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" /> -->
+<!-- 		<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script> -->
+        <title>Project - New</title>
+    </head>
+    <body>
+    	<div layout:fragment="pageHeader">
+          	<section class="content-header">
+	        	<h1>
+	            	Manage Project
+	          	</h1>
+	        </section>
+        </div>
+        
+    	<div layout:fragment="content">
+	        
+              <div class="box box-warning">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Create New Project</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                  <form role="form" th:action="@{/projects/new}" th:object="${project}" method="post">
+<!--                   	<p th:if="${#fields.hasErrors('global')}" th:errors="*{global}" th:class="text-red">Incorrect data</p> -->
+                    <!-- text input -->
+                    <div class="form-group" th:classappend="${#fields.hasErrors('name')}? 'has-error'">
+                      <label>Name</label>
+                      <input type="text" class="form-control" name="name" th:field="*{name}" placeholder="Enter User Name"/>
+                      <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:class="text-red">Incorrect data</p>
+                    </div>
+                    
+                    <div class="form-group" th:classappend="${#fields.hasErrors('description')}? 'has-error'">
+                      <label>Description</label>
+                      <input type="text" class="form-control" name="description" th:field="*{description}" placeholder="Enter Project Description"/>
+                      <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" th:class="text-red">Incorrect data</p>
+                    </div>
+                    
+                    <div class="form-group" th:classappend="${#fields.hasErrors('size')}? 'has-error'">
+                      <label>Size</label>
+                      <input type="size" class="form-control" name="size" th:field="*{size}"  placeholder="Enter size"/>
+                      <p th:if="${#fields.hasErrors('size')}" th:errors="*{size}" th:class="text-red">Incorrect data</p>
+                    </div>
+					<div class="form-group">
+						<label>Assignee</label> 
+<!-- 						<select class="form-control" th:field="*{users}" th:classappend="${#fields.hasErrors('users')}? 'has-error'"> -->
+<!-- 							<option th:each="user : ${allUsers}" -->
+<!-- 									th:value="${user.id}" th:text="${user.name}" >List of Users</option> -->
+<!-- 						</select> -->
+						
+						
+							<select class="form-control" id="selectedUsers" multiple="multiple"  >
+    							<option th:each="user : ${allUsers}"
+    									th:value="${user.id}" th:text="${user.name}">List of Users</option>
+    						</select>
+    				
+    				</div>
+					<div class="box-footer">
+	                    <button type="submit" class="btn btn-primary">Submit</button>
+	                </div>
+                  </form>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+    	</div>
+    	<div layout:fragment="pageLevelScript">
+			<script type="text/javascript">
+  						$('#selectedUsers').select2();
+						</script>
+		</div>
+    </body>
+    
+</html>
